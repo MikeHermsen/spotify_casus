@@ -1,4 +1,5 @@
 using System;  
+using System.Collections.Generic;
 
 namespace spotify {
     class Program {
@@ -8,7 +9,7 @@ namespace spotify {
 
             GUI app = new GUI();
             app.renderBase("home");
-            
+
 
             while (true) {
                 Console.Write("ENTER COMMAND : ");
