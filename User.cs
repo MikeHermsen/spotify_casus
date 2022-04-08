@@ -7,17 +7,19 @@ namespace spotify {
 
         public bool is_authenticated = false;
         public string username;
+        public int id;
         public string password;
+        public new List<int> friends;
 
-        List<SongModel> SongList     = new List<SongModel>();
                 
         public User() 
         {
 
         }
 
-        public User(string username, string password) 
+        public User(string username, string password, List<int> friends) 
         {
+            this.friends  = friends;
             this.username = username;
             this.password = password;
 

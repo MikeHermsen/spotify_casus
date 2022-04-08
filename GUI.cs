@@ -63,6 +63,7 @@ namespace spotify {
             else if ( route == "friends.panel" && user_id != 0)
             { // friends.panel
                 Console.WriteLine("friends.panel");
+                Auth.printFriendsList(user_id);
             }
             else if ( route == "playlist.panel" && user_id != 0)
             { // playlist.panel
