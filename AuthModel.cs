@@ -179,9 +179,9 @@ namespace spotify {
                 {
                     Console.WriteLine("----------------------");
                     SongModel song = SongDict[song_key];
-                    Console.WriteLine($"song-name:      {song.title}");
-                    Console.WriteLine($"song-name:      {song.duration}");
-                    Console.WriteLine($"song-name:      {song.genre}");
+                    Console.WriteLine($"song-title:     {song.title}");
+                    Console.WriteLine($"song-duration:  {song.duration}");
+                    Console.WriteLine($"song-genre:     {song.genre}");
                     Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
 
                 }
