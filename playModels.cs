@@ -12,7 +12,6 @@ namespace spotify {
 
     class AfspeelLijst : IPlayModel
     {
-
         public List<int> songs;
         public string title;
         public int author;
