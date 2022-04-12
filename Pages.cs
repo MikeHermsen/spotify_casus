@@ -129,6 +129,7 @@ namespace spotify {
         public void renderPage()
         {
             Console.WriteLine("playlist.panel");
+            Console.WriteLine("goto playlist.view   - See all playlist");
         }
 
         public void playlistView()
