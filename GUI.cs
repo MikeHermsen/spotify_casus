@@ -95,12 +95,18 @@ namespace spotify {
 
             else if (route.StartsWith("playlist"))
             {
-                PlayList pageObj = new PlayList();
+                PlayList pageObj = new PlayList(Auth, user_id);
 
                 if ( route == "playlist.panel" && user_id != 0)
                 { // playlist.panel
                     pageObj.renderPage();
+                }   
+                else if ( route == "playlist.view" && user_id != 0)
+                { // playlist.view
+                    pageObj.playlistView();
                 }
+
+
             }
 
             else if (route.StartsWith("song"))
@@ -128,7 +134,7 @@ namespace spotify {
             else if ( command.StartsWith("login.test") && user_id == 0) 
             { // DEBUG LOGIN TODO
                 user_id = Auth.loginUser("mike_hermsen", "test123");
-                renderBase("friends.panel");
+                renderBase("playlist.view");
             }
 
 

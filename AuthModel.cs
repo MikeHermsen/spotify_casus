@@ -12,8 +12,8 @@ namespace spotify {
         private Dictionary<int, SongModel> SongDict =  
                 new Dictionary<int, SongModel>(); 
 
-        private Dictionary<int, Afspeellijst> afspeellijst =  
-                new Dictionary<int, Afspeellijst>(); 
+        private Dictionary<int, AfspeelLijst> afspeellijst =  
+                new Dictionary<int, AfspeelLijst>(); 
     
         private Dictionary<int, Album> album =  
                 new Dictionary<int, Album>(); 
@@ -47,7 +47,37 @@ namespace spotify {
                 )
             );
 
+            afspeellijst.Add(
+                1, new AfspeelLijst(
+                    "van alles en nog wat",
+                    new List<int> {1, 2, 3},
+                    1
+                )
+            );
 
+            afspeellijst.Add(
+                2, new AfspeelLijst(
+                    "DJ mixer",
+                    new List<int> {3},
+                    2
+                )
+            );
+
+            afspeellijst.Add(
+                4, new AfspeelLijst(
+                    "CopyRight not existing",
+                    new List<int> {1, 2, 3},
+                    2
+                )
+            );
+
+            afspeellijst.Add(
+                3, new AfspeelLijst(
+                    "MikeySpikes",
+                    new List<int> {1, 2},
+                    3
+                )
+            );
 
             album.Add(
                 1, new Album(
@@ -57,23 +87,6 @@ namespace spotify {
                 )
             );
 
-
-            afspeellijst.Add(
-                1, new Afspeellijst(
-                    "Alles",
-                    new List<int> {1, 2},
-                    3
-                )
-            );
-
-
-            afspeellijst.Add(
-                2, new Afspeellijst(
-                    "alleen",
-                    new List<int> {1},
-                    2
-                )
-            );
 
             UsersDict.Add(
                 1, new User(
@@ -144,6 +157,37 @@ namespace spotify {
                 Console.WriteLine($"friends-username:{key} - {user.username}");
             }
 
+        }
+
+        public void printPlayLists(int user_id)
+        {
+            Console.WriteLine($"fetching songs");
+            foreach (int key in afspeellijst.Keys) 
+            {
+
+                    Console.WriteLine("");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("");
+
+                if (afspeellijst[key].author == user_id) {
+                    Console.WriteLine("Playlist belongs to you");
+                }
+
+                Console.WriteLine($"-Afspeelijst-name:      {afspeellijst[key].title}");
+                Console.WriteLine($"-Afspeelijst-artis:     {UsersDict[afspeellijst[key].author].username}");
+                foreach (int song_key in afspeellijst[key].songs) 
+                {
+                    Console.WriteLine("----------------------");
+                    SongModel song = SongDict[song_key];
+                    Console.WriteLine($"song-name:      {song.title}");
+                    Console.WriteLine($"song-name:      {song.duration}");
+                    Console.WriteLine($"song-name:      {song.genre}");
+                    Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
+
+                }
+
+            }
+            
         }
 
 

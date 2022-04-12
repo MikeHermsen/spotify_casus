@@ -117,9 +117,23 @@ namespace spotify {
     class PlayList : IPage
     {
 
+        AuthModel auth_model;
+        int user_id;
+
+        public PlayList(AuthModel auth_model, int user_id)
+        {
+            this.auth_model = auth_model;
+            this.user_id = user_id;
+        }
+
         public void renderPage()
         {
             Console.WriteLine("playlist.panel");
+        }
+
+        public void playlistView()
+        {
+            this.auth_model.printPlayLists(this.user_id);
         }
 
     }
