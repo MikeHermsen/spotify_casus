@@ -27,66 +27,93 @@ namespace spotify {
         public void renderBody(string route) {
             themaGui();
 
-            if ( route == "home" ) 
-            { // DE HOMESCREEN 
-                Console.WriteLine("Welcome user");
+
+            if (route.StartsWith("home"))
+            {
+                Home pageObj = new Home();
+
+                if ( route == "home" ) 
+                { // DE HOMESCREEN 
+                    pageObj.renderPage();
+                } 
             } 
             
-            else if ( route == "login" && user_id == 0 ) 
-            { // LOGINSCREEN
-                Console.WriteLine("login.username your-username");
-                Console.WriteLine("login.password your-password");
-                Console.WriteLine("login.submit");
-            }
-            else if ( route == "register" && user_id == 0)
-            { // REGISTERSCREEN
-                Console.WriteLine("register.username your-username");
-                Console.WriteLine("register.password your-password");
-                Console.WriteLine("register.submit");
+            else if (route.StartsWith("register")) 
+            {
+                Register pageObj = new Register();
+
+            
+                if ( route == "register" && user_id == 0)
+                { // REGISTERSCREEN
+                    pageObj.renderPage();
+                }
+            } 
+            
+            else if (route.StartsWith("login"))
+            {
+                Login pageObj = new Login();
+
+                if ( route == "login" && user_id == 0 ) 
+                { // LOGINSCREEN
+                    pageObj.renderPage();
+                }
             }
 
-            // IF AUTHENTICATED
-            else if ( route == "dashboard" && user_id != 0)
-            { // Dashboard
-                Console.WriteLine($"Account: {Auth.getUsername(user_id)}");
-                    Console.WriteLine();
-
-                Console.WriteLine("mediaplayer.panel");
-                Console.WriteLine("friends.panel");
-                Console.WriteLine("playlist.panel");
-                Console.WriteLine("song.panel");
+            else if (route.StartsWith("dashboard"))
+            {
+                Dashboard pageObj = new Dashboard(Auth.getUsername(user_id));
+            
+                if ( route == "dashboard" && user_id != 0)
+                { // Dashboard
+                    pageObj.renderPage();
+                }
             }
 
-            // SECTIONS OF WHEN IS_AUTH
-            else if ( route == "mediaplayer.panel" && user_id != 0)
-            { // mediaplayer.panel
-                Console.WriteLine("mediaplayer.panel");
-            }
-            else if ( route == "friends.panel" && user_id != 0)
-            { // friends.panel
-                Console.WriteLine("friends.panel");
-                Auth.printFriendsList(user_id);
-                Console.WriteLine("friend.add {friend-id}");
-                Console.WriteLine("friend.remove {friend-id}");
-                Console.WriteLine("friend.profile {friend-id}");
+            else if (route.StartsWith("mediaplayer"))
+            {
+                MediaPlayer pageObj = new MediaPlayer();
 
-            }
-            else if ( route == "friend.profile" && user_id != 0)
-            { // friends.panel
-                Console.WriteLine("friend.profile");
-                Auth.printFriendProfileById(int.Parse(cache));
-
+                if ( route == "mediaplayer.panel" && user_id != 0)
+                { // mediaplayer.panel
+                    pageObj.renderPage();
+                }
             }
 
-            else if ( route == "playlist.panel" && user_id != 0)
-            { // playlist.panel
-                Console.WriteLine("playlist.panel");
-            }
-            else if ( route == "song.panel" && user_id != 0)
-            { // song.panel
-                Console.WriteLine("song.panel");
+            else if (route.StartsWith("friends")) 
+            {
+                Friends pageObj = new Friends(user_id, Auth);
+
+                if ( route == "friends.panel" && user_id != 0)
+                { // friends.panel
+                    pageObj.renderPage();
+                }
+                else if ( route == "friends.profile" && user_id != 0)
+                { // friends.panel
+                    pageObj.friendProfile(int.Parse(cache));
+                }
             }
 
+            else if (route.StartsWith("playlist"))
+            {
+                PlayList pageObj = new PlayList();
+
+                if ( route == "playlist.panel" && user_id != 0)
+                { // playlist.panel
+                    pageObj.renderPage();
+                }
+            }
+
+            else if (route.StartsWith("song"))
+            {
+                SongPage pageObj = new SongPage();
+
+
+                if ( route == "song.panel" && user_id != 0)
+                { // song.panel
+                    pageObj.renderPage();
+                }
+            }
+            
             resetGui();
         }
 
@@ -126,22 +153,22 @@ namespace spotify {
                     Console.WriteLine("Incorrect credentials given");
                 }
             }
-            else if ( command.StartsWith("friend.add") && user_id == 1) 
+            else if ( command.StartsWith("friends.add") && user_id == 1) 
             {
                 int friend_id = int.Parse(command.Split(" ")[1]);
                 Auth.addFriendWithId(user_id, friend_id);
                 renderBase("friends.panel");
             }
-            else if ( command.StartsWith("friend.remove") && user_id == 1) 
+            else if ( command.StartsWith("friends.remove") && user_id == 1) 
             {
                 int friend_id = int.Parse(command.Split(" ")[1]);
                 Auth.removeFriendWithId(user_id, friend_id);
                 renderBase("friends.panel");
             }
-            else if ( command.StartsWith("friend.profile") && user_id == 1) 
+            else if ( command.StartsWith("friends.profile") && user_id == 1) 
             {
                 cache = command.Split(" ")[1];
-                renderBase("friend.profile");
+                renderBase("friends.profile");
             }
 
             // EXIT
