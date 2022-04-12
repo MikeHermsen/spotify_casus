@@ -12,8 +12,11 @@ namespace spotify {
         private Dictionary<int, SongModel> SongDict =  
                 new Dictionary<int, SongModel>(); 
 
-        private Dictionary<int, PlayListModel> PlayListDict =  
-                new Dictionary<int, PlayListModel>(); 
+        private Dictionary<int, Afspeellijst> afspeellijst =  
+                new Dictionary<int, Afspeellijst>(); 
+    
+        private Dictionary<int, Album> album =  
+                new Dictionary<int, Album>(); 
     
         public AuthModel()
         {
@@ -45,17 +48,27 @@ namespace spotify {
             );
 
 
-            PlayListDict.Add(
-                1, new PlayListModel(
+
+            album.Add(
+                1, new Album(
                     "Alles",
-                    new List<int> {1, 2, 3},
+                    new List<int> {2, 3},
                     3
                 )
             );
 
 
-            PlayListDict.Add(
-                2, new PlayListModel(
+            afspeellijst.Add(
+                1, new Afspeellijst(
+                    "Alles",
+                    new List<int> {1, 2},
+                    3
+                )
+            );
+
+
+            afspeellijst.Add(
+                2, new Afspeellijst(
                     "alleen",
                     new List<int> {1},
                     2
@@ -66,7 +79,7 @@ namespace spotify {
                 1, new User(
                     "mike_hermsen",
                     "test123",
-                    new List<int> {} 
+                    new List<int> {2} 
                 )
             );
 
@@ -87,15 +100,52 @@ namespace spotify {
             );
         }
 
+        public void printFriendProfileById(int friend_id) 
+        {
+            User user = UsersDict[friend_id];
+            Console.WriteLine($"Name:    {friend_id}");
+            Console.WriteLine($"username:    {user.username}");
+            foreach (int friend_of_user in user.friends)
+            {
+                Console.WriteLine($"Friends name:    {getUsername(friend_of_user)}");
+            }
+        }
+
+        public void addFriendWithId(int user_id, int friend_id)
+        {
+            User user = UsersDict[user_id];
+            if ( user.friends.Contains(friend_id) ) 
+            {
+                Console.WriteLine("Friend already existing.");
+            } else {
+
+                user.friends.Add(friend_id);
+                UsersDict[user_id] = user;
+            }
+
+        }
+
+        public void removeFriendWithId(int user_id, int friend_id)
+        {
+            User user = UsersDict[user_id];
+            if ( user.friends.Contains(friend_id) ) 
+            {
+                user.friends.Remove(friend_id);
+                UsersDict[user_id] = user;
+
+            }
+        }
+
         public void printFriendsList(int user_id)
         {
             foreach (int key in UsersDict[user_id].friends) {
                 User user = UsersDict[key];
 
-                Console.WriteLine($"friends-username:{user.username}");
+                Console.WriteLine($"friends-username:{key} - {user.username}");
             }
 
         }
+
 
         public void logoutUser(int user_id)
         {

@@ -8,6 +8,7 @@ namespace spotify {
 
         public string hold_login_username;
         public string hold_login_password;
+        private string cache;
         int user_id               = 0;
         private List<User> UsersList     = new List<User>();
         public AuthModel Auth = new AuthModel();
@@ -30,6 +31,7 @@ namespace spotify {
             { // DE HOMESCREEN 
                 Console.WriteLine("Welcome user");
             } 
+            
             else if ( route == "login" && user_id == 0 ) 
             { // LOGINSCREEN
                 Console.WriteLine("login.username your-username");
@@ -64,7 +66,18 @@ namespace spotify {
             { // friends.panel
                 Console.WriteLine("friends.panel");
                 Auth.printFriendsList(user_id);
+                Console.WriteLine("friend.add {friend-id}");
+                Console.WriteLine("friend.remove {friend-id}");
+                Console.WriteLine("friend.profile {friend-id}");
+
             }
+            else if ( route == "friend.profile" && user_id != 0)
+            { // friends.panel
+                Console.WriteLine("friend.profile");
+                Auth.printFriendProfileById(int.Parse(cache));
+
+            }
+
             else if ( route == "playlist.panel" && user_id != 0)
             { // playlist.panel
                 Console.WriteLine("playlist.panel");
@@ -84,6 +97,14 @@ namespace spotify {
                 string page = command.Split(" ")[1];
                 renderBase(page);
             }
+
+            else if ( command.StartsWith("login.test") && user_id == 0) 
+            { // DEBUG LOGIN TODO
+                user_id = Auth.loginUser("mike_hermsen", "test123");
+                renderBase("friends.panel");
+            }
+
+
             // LOGIN
             else if ( command.StartsWith("login.username") && user_id == 0) 
             {
@@ -105,6 +126,24 @@ namespace spotify {
                     Console.WriteLine("Incorrect credentials given");
                 }
             }
+            else if ( command.StartsWith("friend.add") && user_id == 1) 
+            {
+                int friend_id = int.Parse(command.Split(" ")[1]);
+                Auth.addFriendWithId(user_id, friend_id);
+                renderBase("friends.panel");
+            }
+            else if ( command.StartsWith("friend.remove") && user_id == 1) 
+            {
+                int friend_id = int.Parse(command.Split(" ")[1]);
+                Auth.removeFriendWithId(user_id, friend_id);
+                renderBase("friends.panel");
+            }
+            else if ( command.StartsWith("friend.profile") && user_id == 1) 
+            {
+                cache = command.Split(" ")[1];
+                renderBase("friend.profile");
+            }
+
             // EXIT
             else if (command == "exit") 
             {
