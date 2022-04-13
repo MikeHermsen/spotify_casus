@@ -113,6 +113,7 @@ namespace spotify {
             );
         }
 
+
         public void printFriendProfileById(int friend_id) 
         {
             User user = UsersDict[friend_id];
@@ -128,19 +129,17 @@ namespace spotify {
         public void addFriendWithId(int user_id, int friend_id)
         {
             User user = UsersDict[user_id];
-            if ( user_id == friend_id )
-            {
-                return;
-            }
+            if ( user_id == friend_id ) return;
+
 
             if ( user.friends.Contains(friend_id) ) 
             {
                 Console.WriteLine("Friend already existing.");
-            } else {
+                return;
+            } 
 
-                user.friends.Add(friend_id);
-                UsersDict[user_id] = user;
-            }
+            user.friends.Add(friend_id);
+            UsersDict[user_id] = user;
 
         }
 

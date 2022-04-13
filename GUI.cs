@@ -12,9 +12,11 @@ namespace spotify {
         int user_id               = 0;
         private List<User> UsersList     = new List<User>();
         public AuthModel Auth = new AuthModel();
+        public MediaController mediaPlayer = new MediaController();
 
         public void renderBase(string route) {
             ClearGUI();
+            Console.WriteLine(mediaPlayer.getRunTime());
 
             renderHeader(route);
                 Console.WriteLine();
