@@ -52,15 +52,29 @@ namespace spotify {
 
             SongModel song_model = auth_model.getCurrentSongByID(this.current_song);
 
-            Console.WriteLine(song_model.duration);
-            Console.WriteLine(getRunTime());
+            int time_playing = getRunTime() - song_model.duration;
+            int time_left = song_model.duration - getRunTime();
+
+            if (time_left > 0) {
+                goToNextSong(auth_model);
+            }
             
+        }
+
+
+        public void goToNextSong(AuthModel auth_model) 
+        {
+            song_list.Remove(song_id);
+            if (song_list.Count == 0) {
+                Console.WriteLine("Play random song from auth");
+            }
         }
 
         public void playSongWithID(int song_id)
         {
             resetRunTime();
             this.current_song = song_id;
+            song_list.Add(song_id);
         }
 
         public int currentSongPlaying() 
