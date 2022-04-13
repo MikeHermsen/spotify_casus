@@ -120,13 +120,19 @@ namespace spotify {
             Console.WriteLine($"username:    {user.username}");
             foreach (int friend_of_user in user.friends)
             {
-                Console.WriteLine($"Friends name:    {getUsername(friend_of_user)}");
+                Console.WriteLine($"Friends name: {friend_of_user} - {getUsername(friend_of_user)}");
             }
+    
         }
 
         public void addFriendWithId(int user_id, int friend_id)
         {
             User user = UsersDict[user_id];
+            if ( user_id == friend_id )
+            {
+                return;
+            }
+
             if ( user.friends.Contains(friend_id) ) 
             {
                 Console.WriteLine("Friend already existing.");
@@ -190,6 +196,37 @@ namespace spotify {
             
         }
 
+        public void printPlayListsWithId(int profile_id)
+        {
+            Console.WriteLine($"fetching songs");
+            foreach (int key in afspeellijst.Keys) 
+            {
+                if (afspeellijst[key].author != profile_id)
+                {
+                    continue;
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("----------------------");
+                Console.WriteLine("");
+
+
+                Console.WriteLine($"-Afspeelijst-name:      {afspeellijst[key].title}");
+                Console.WriteLine($"-Afspeelijst-artis:     {UsersDict[afspeellijst[key].author].username}");
+                foreach (int song_key in afspeellijst[key].songs) 
+                {
+                    Console.WriteLine("----------------------");
+                    SongModel song = SongDict[song_key];
+                    Console.WriteLine($"song-name:      {song.title}");
+                    Console.WriteLine($"song-name:      {song.duration}");
+                    Console.WriteLine($"song-name:      {song.genre}");
+                    Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
+
+                }
+
+            }
+            
+        }
 
         public void logoutUser(int user_id)
         {
@@ -202,6 +239,35 @@ namespace spotify {
         {
             User user = UsersDict[user_id];
             return user.username;
+        }
+
+
+        public void registerUser(string posted_username, string posted_password)
+        {
+
+            bool user_exist = false;
+            foreach (int key in UsersDict.Keys) {
+                User user = UsersDict[key];
+
+                if (user.username == posted_username) 
+                {
+                    user_exist = true;
+                    break; 
+                } 
+            }
+
+            if ( !user_exist ) 
+            {
+                UsersDict.Add(
+                    UsersDict.Count + 1, new User(
+                        posted_username,
+                        posted_password,
+                        new List<int> {}
+                    )
+                );                
+            }
+
+            
         }
 
         public int loginUser(string posted_username, string posted_password)

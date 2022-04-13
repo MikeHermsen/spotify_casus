@@ -34,6 +34,8 @@ namespace spotify {
 
         public void renderPage() 
         {
+            Console.WriteLine("Use goto {page.name} to navigate");
+                Console.WriteLine();
             Console.WriteLine("login.username your-username");
             Console.WriteLine("login.password your-password");
             Console.WriteLine("login.submit"); 
@@ -46,6 +48,8 @@ namespace spotify {
 
         public void renderPage() 
         {
+            Console.WriteLine("Use goto {page.name} to navigate");
+                Console.WriteLine();
             Console.WriteLine("register.username your-username");
             Console.WriteLine("register.password your-password");
             Console.WriteLine("register.submit");
@@ -64,6 +68,8 @@ namespace spotify {
         
         public void renderPage()
         {
+            Console.WriteLine("Use goto {page.name} to navigate");
+                Console.WriteLine();
             Console.WriteLine($"Account: {this.user_id}");
                 Console.WriteLine();
 
@@ -80,6 +86,8 @@ namespace spotify {
 
         public void renderPage()
         {
+            Console.WriteLine("Use goto {page.name} to navigate");
+                Console.WriteLine();
             Console.WriteLine("mediaplayer.panel");
         }
 
@@ -96,6 +104,8 @@ namespace spotify {
         }
         public void renderPage()
         {
+            Console.WriteLine("Use goto {page.name} to navigate");
+                Console.WriteLine();
         
                 Console.WriteLine("friends.panel");
                 
@@ -128,7 +138,10 @@ namespace spotify {
 
         public void renderPage()
         {
+            Console.WriteLine("Use goto {page.name} to navigate");
+                Console.WriteLine();
             Console.WriteLine("playlist.panel");
+            Console.WriteLine("playlist.view");
         }
 
         public void playlistView()
@@ -144,6 +157,8 @@ namespace spotify {
 
         public void renderPage()
         {
+            Console.WriteLine("Use goto {page.name} to navigate");
+                Console.WriteLine();
             Console.WriteLine("song.panel");
         }
 
