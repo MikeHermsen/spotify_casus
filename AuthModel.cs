@@ -125,6 +125,13 @@ namespace spotify {
             }
     
         }
+        public SongModel getCurrentSongByID(int song_id) 
+        {
+            SongModel song = SongDict[song_id];
+            return song;
+
+        }
+
 
         public void addFriendWithId(int user_id, int friend_id)
         {

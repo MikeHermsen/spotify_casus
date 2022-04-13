@@ -17,6 +17,8 @@ namespace spotify {
         public void renderBase(string route) {
             ClearGUI();
             Console.WriteLine(mediaPlayer.getRunTime());
+            mediaPlayer.updateSongLogic(Auth);
+            
 
             renderHeader(route);
                 Console.WriteLine();
@@ -136,7 +138,7 @@ namespace spotify {
             else if ( command.StartsWith("login.test") && user_id == 0) 
             { // DEBUG LOGIN TODO
                 user_id = Auth.loginUser("mike_hermsen", "test123");
-                renderBase("playlist.view");
+                handeCommand("mediaplayer.play 2");
             }
 
 
@@ -184,6 +186,14 @@ namespace spotify {
                     Console.WriteLine("Incorrect credentials given");
                 }
             }
+            
+            else if ( command.StartsWith("mediaplayer.play") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                mediaPlayer.playSongWithID(song_id);
+                renderBase("mediaplayer.panel");
+            }
+           
 
 
             else if ( command.StartsWith("friends.add") && user_id != 0) 

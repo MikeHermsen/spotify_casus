@@ -7,7 +7,7 @@ namespace spotify {
     class MediaController {  
 
         public List<int> song_list;
-        public int current_song;
+        public int current_song = 0;
         private DateTime src_time = DateTime.Now;
 
         public MediaController()
@@ -16,13 +16,18 @@ namespace spotify {
 
         private int convertTimeToSeconds(int given_hour, int given_minute, int given_second)
         {
-
             
             int hour        = given_hour * 360; 
             int minutes     = given_minute * 60;
         
             return given_second + minutes + hour;
         }
+        
+        private void resetRunTime()
+        {
+            this.src_time = DateTime.Now;
+        }
+            
         public int getRunTime()
         {
 
@@ -37,10 +42,29 @@ namespace spotify {
 
         }
 
+        public void updateSongLogic(AuthModel auth_model)
+        {
 
+            if (this.current_song == 0) 
+            {
+                return;
+            }
+
+            SongModel song_model = auth_model.getCurrentSongByID(this.current_song);
+
+            Console.WriteLine(song_model.duration);
+            Console.WriteLine(getRunTime());
+            
+        }
+
+        public void playSongWithID(int song_id)
+        {
+            resetRunTime();
+            this.current_song = song_id;
+        }
 
         public int currentSongPlaying() 
-        {
+        { 
             return this.current_song;
         }
 
