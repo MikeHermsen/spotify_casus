@@ -10,6 +10,9 @@ namespace spotify {
         public int id;
         public string password;
         public new List<int> friends;
+        public new List<int> liked_songs;
+        public new List<int> liked_albums;
+        public new List<int> liked_playlist;
 
                 
         public User() 
@@ -22,6 +25,15 @@ namespace spotify {
             this.friends  = friends;
             this.username = username;
             this.password = password;
+            this.liked_songs  = friends;
+        }
+
+        public User(string username, string password, List<int> friends, List<int> liked_songs) 
+        {
+            this.friends  = friends;
+            this.username = username;
+            this.password = password;
+            this.liked_songs = liked_songs;
 
         }
     }

@@ -128,9 +128,10 @@ namespace spotify {
             
             int time_left = song_model.duration - getRunTime();
             
+            Console.WriteLine($"id:       {this.current_song}     ");
             Console.WriteLine($"title:      {song_model.title}     ");
             Console.WriteLine($"duration:   {song_model.duration}  ");
-            Console.WriteLine($"artist:     {song_model.artist}    ");
+            Console.WriteLine($"artist:     {song_model.artist}-{Auth.getUsername(song_model.artist)}    ");
             Console.WriteLine($"time left:  {time_left}             ");
             Console.WriteLine($"genre:      {song_model.genre}     ");
 
@@ -147,9 +148,10 @@ namespace spotify {
                     SongModel queue_song_model = Auth.getCurrentSongByID(song_id);
                     Console.WriteLine();
                     
+                    Console.WriteLine($"id:       {song_id}     ");
                     Console.WriteLine($"title:      {queue_song_model.title}     ");
                     Console.WriteLine($"duration:   {queue_song_model.duration}  ");
-                    Console.WriteLine($"artist:     {queue_song_model.artist}    ");
+                    Console.WriteLine($"artist:     {queue_song_model.artist}-{Auth.getUsername(queue_song_model.artist)}    ");
                     Console.WriteLine($"genre:      {queue_song_model.genre}     ");
 
                     Console.WriteLine();

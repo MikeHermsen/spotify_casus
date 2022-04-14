@@ -92,6 +92,7 @@ namespace spotify {
                 1, new User(
                     "mike_hermsen",
                     "test123",
+                    new List<int> {2},
                     new List<int> {2} 
                 )
             );
@@ -100,7 +101,8 @@ namespace spotify {
                 2, new User(
                     "mikey_test",
                     "test123",
-                    new List<int> {3}
+                    new List<int> {2},
+                    new List<int> {1, 2, 3}
                 )
             );
             
@@ -108,7 +110,9 @@ namespace spotify {
                 3, new User(
                     "alberto",
                     "test123",
-                    new List<int> {2}
+                    new List<int> {2},
+                    new List<int> {2} 
+
                 )
             );
         }
@@ -119,11 +123,13 @@ namespace spotify {
             User user = UsersDict[friend_id];
             Console.WriteLine($"Name:    {friend_id}");
             Console.WriteLine($"username:    {user.username}");
+
             foreach (int friend_of_user in user.friends)
-            {
                 Console.WriteLine($"Friends name: {friend_of_user} - {getUsername(friend_of_user)}");
-            }
-    
+
+            foreach (int liked_song in user.liked_songs)
+                Console.WriteLine($"Liked song name: {liked_song} - {getCurrentSongByID(liked_song).title}");
+
         }
         public SongModel getCurrentSongByID(int song_id) 
         {
@@ -156,6 +162,33 @@ namespace spotify {
             if ( user.friends.Contains(friend_id) ) 
             {
                 user.friends.Remove(friend_id);
+                UsersDict[user_id] = user;
+
+            }
+        }
+
+
+        public void addSongWithId(int user_id, int song_id)
+        {
+            User user = UsersDict[user_id];
+
+            if ( user.liked_songs.Contains(song_id) ) 
+            {
+                Console.WriteLine("Song already existing.");
+                return;
+            } 
+
+            user.liked_songs.Add(song_id);
+            UsersDict[user_id] = user;
+
+        }
+
+        public void removeSongWithId(int user_id, int song_id)
+        {
+            User user = UsersDict[user_id];
+            if ( user.liked_songs.Contains(song_id) ) 
+            {
+                user.liked_songs.Remove(song_id);
                 UsersDict[user_id] = user;
 
             }

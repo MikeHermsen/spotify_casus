@@ -219,6 +219,19 @@ namespace spotify {
             {
                 mediaPlayer.goToNextSong(Auth);
             }
+            else if ( command.StartsWith("song.like") && user_id != 0) 
+            {
+                int hold_song_id = int.Parse(command.Split(" ")[1]);
+                Auth.addSongWithId(user_id, hold_song_id);
+                renderBase("song.panel");
+            }
+            else if ( command.StartsWith("song.dislike") && user_id != 0) 
+            {
+                int hold_song_id = int.Parse(command.Split(" ")[1]);
+                Auth.removeSongWithId(user_id, hold_song_id);
+                renderBase("song.panel");
+            }
+
 
 
             else if ( command.StartsWith("friends.add") && user_id != 0) 
