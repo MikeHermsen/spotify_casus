@@ -234,6 +234,41 @@ namespace spotify {
             
         }
 
+<<<<<<< HEAD
+=======
+        public void printPlayListsWithId(int profile_id)
+        {
+            Console.WriteLine($"fetching songs");
+            foreach (int key in afspeellijst.Keys) 
+            {
+                if (afspeellijst[key].author != profile_id)
+                {
+                    continue;
+                }
+
+                Console.WriteLine("");
+                Console.WriteLine("----------------------");
+                Console.WriteLine("");
+
+
+                Console.WriteLine($"-Afspeelijst-name:      {afspeellijst[key].title}");
+                Console.WriteLine($"-Afspeelijst-artis:     {UsersDict[afspeellijst[key].author].username}");
+                foreach (int song_key in afspeellijst[key].songs) 
+                {
+                    Console.WriteLine("----------------------");
+                    SongModel song = SongDict[song_key];
+                    Console.WriteLine($"song-name:      {song.title}");
+                    Console.WriteLine($"song-name:      {song.duration}");
+                    Console.WriteLine($"song-name:      {song.genre}");
+                    Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
+
+                }
+
+            }
+            
+        }
+
+>>>>>>> main
         public void logoutUser(int user_id)
         {
             User user = UsersDict[user_id];

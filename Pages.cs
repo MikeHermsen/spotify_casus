@@ -142,7 +142,11 @@ namespace spotify {
                 Console.WriteLine();
             Console.WriteLine("playlist.panel");
 <<<<<<< HEAD
+<<<<<<< HEAD
             Console.WriteLine("goto playlist.view   - See all playlist");
+=======
+            Console.WriteLine("playlist.view");
+>>>>>>> main
 =======
             Console.WriteLine("playlist.view");
 >>>>>>> main
