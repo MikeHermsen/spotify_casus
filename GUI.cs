@@ -12,9 +12,13 @@ namespace spotify {
         int user_id               = 0;
         private List<User> UsersList     = new List<User>();
         public AuthModel Auth = new AuthModel();
+        public MediaController mediaPlayer = new MediaController();
 
         public void renderBase(string route) {
             ClearGUI();
+            Console.WriteLine(mediaPlayer.getRunTime());
+            mediaPlayer.updateSongLogic(Auth);
+            
 
             renderHeader(route);
                 Console.WriteLine();
@@ -134,7 +138,7 @@ namespace spotify {
             else if ( command.StartsWith("login.test") && user_id == 0) 
             { // DEBUG LOGIN TODO
                 user_id = Auth.loginUser("mike_hermsen", "test123");
-                renderBase("playlist.view");
+                handeCommand("mediaplayer.play 2");
             }
 
 
@@ -159,19 +163,52 @@ namespace spotify {
                     Console.WriteLine("Incorrect credentials given");
                 }
             }
-            else if ( command.StartsWith("friends.add") && user_id == 1) 
+
+            else if ( command.StartsWith("register.username") && user_id == 0) 
+            {
+                string value = command.Split(" ")[1];
+                this.hold_login_username = value;
+            }
+            else if ( command.StartsWith("register.password") && user_id == 0) 
+            {
+                string value = command.Split(" ")[1];
+                this.hold_login_password = value;
+            }
+            else if ( command.StartsWith("register.submit") && user_id == 0) 
+            {
+                Auth.registerUser(this.hold_login_username, this.hold_login_password);
+                user_id = Auth.loginUser(this.hold_login_username, this.hold_login_password);
+                
+                if ( user_id != 0 )
+                {
+                    renderBase("dashboard");
+                } else {
+                    Console.WriteLine("Incorrect credentials given");
+                }
+            }
+            
+            else if ( command.StartsWith("mediaplayer.play") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                mediaPlayer.playSongWithID(song_id);
+                renderBase("mediaplayer.panel");
+            }
+           
+
+
+            else if ( command.StartsWith("friends.add") && user_id != 0) 
             {
                 int friend_id = int.Parse(command.Split(" ")[1]);
                 Auth.addFriendWithId(user_id, friend_id);
                 renderBase("friends.panel");
             }
-            else if ( command.StartsWith("friends.remove") && user_id == 1) 
+            else if ( command.StartsWith("friends.remove") && user_id != 0) 
             {
                 int friend_id = int.Parse(command.Split(" ")[1]);
                 Auth.removeFriendWithId(user_id, friend_id);
                 renderBase("friends.panel");
             }
-            else if ( command.StartsWith("friends.profile") && user_id == 1) 
+            else if ( command.StartsWith("friends.profile") && user_id != 0) 
             {
                 cache = command.Split(" ")[1];
                 renderBase("friends.profile");
