@@ -110,7 +110,6 @@ namespace spotify {
                     pageObj.playlistView();
                 }
 
-
             }
 
             else if (route.StartsWith("song"))
@@ -187,13 +186,39 @@ namespace spotify {
                 }
             }
             
+            
             else if ( command.StartsWith("mediaplayer.play") && user_id != 0) 
             {
                 int song_id = int.Parse(command.Split(" ")[1]);
                 mediaPlayer.playSongWithID(song_id);
                 renderBase("mediaplayer.panel");
             }
-           
+
+            else if ( command.StartsWith("playlist.view-id") && user_id != 0) 
+            {
+                int profile_id = int.Parse(command.Split(" ")[1]);
+                Auth.printPlayListsWithId(profile_id );
+
+            }
+ 
+            else if ( command.StartsWith("playlist.play") && user_id != 0) 
+            {
+                int playlist_id = int.Parse(command.Split(" ")[1]);
+                List<int> playList = Auth.fetchPlayListsWithId(playlist_id);
+                mediaPlayer.importSongsFromList(playList);
+                mediaPlayer.updateSongLogic(Auth);
+
+            }
+
+
+            else if ( command.StartsWith("song.current") && user_id != 0) 
+            {
+                mediaPlayer.currentSongPlaying(Auth);
+            }
+            else if ( command.StartsWith("song.next") && user_id != 0) 
+            {
+                mediaPlayer.goToNextSong(Auth);
+            }
 
 
             else if ( command.StartsWith("friends.add") && user_id != 0) 

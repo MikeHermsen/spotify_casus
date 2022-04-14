@@ -141,15 +141,8 @@ namespace spotify {
             Console.WriteLine("Use goto {page.name} to navigate");
                 Console.WriteLine();
             Console.WriteLine("playlist.panel");
-<<<<<<< HEAD
-<<<<<<< HEAD
-            Console.WriteLine("goto playlist.view   - See all playlist");
-=======
-            Console.WriteLine("playlist.view");
->>>>>>> main
-=======
-            Console.WriteLine("playlist.view");
->>>>>>> main
+            Console.WriteLine("goto playlist.view               - See all playlist");
+            Console.WriteLine("playlist.view-id   {user_id}     - See all playlist of user");
         }
 
         public void playlistView()
@@ -167,8 +160,10 @@ namespace spotify {
         {
             Console.WriteLine("Use goto {page.name} to navigate");
                 Console.WriteLine();
-            Console.WriteLine("song.panel");
+            Console.WriteLine("goto song.panel");
+            Console.WriteLine("song.current     - view current song"); 
         }
+        
 
     }
 

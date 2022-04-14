@@ -22,8 +22,8 @@ namespace spotify {
         {
             SongDict.Add(
                 1, new SongModel(
-                    "Hello",
-                    120,
+                    "Hello world & D&B Style",
+                    80,
                     "d&b", 
                     2
                 )
@@ -31,18 +31,18 @@ namespace spotify {
 
             SongDict.Add(
                 2, new SongModel(
-                    "Nee",
-                    100,
-                    "rock", 
+                    "Gopnik hardstyle",
+                    120,
+                    "DJ Blyatman", 
                     3
                 )
             );
 
             SongDict.Add(
                 3, new SongModel(
-                    "Thosiba",
-                    90,
-                    "classic", 
+                    "Never gonna give you up",
+                    60,
+                    "Die rooie", 
                     3
                 )
             );
@@ -201,6 +201,20 @@ namespace spotify {
             }
             
         }
+        public List<int> fetchPlayListsWithId(int playListid) 
+        {
+            Console.WriteLine("Play song list called");
+            List<int> temp_list = new List<int> {};
+
+            if (!afspeellijst.ContainsKey(playListid))
+            {
+                return temp_list;
+            }
+
+            Console.WriteLine($" the songs {afspeellijst[playListid].songs}");
+
+            return afspeellijst[playListid].songs;
+        }
 
         public void printPlayListsWithId(int profile_id)
         {
@@ -234,41 +248,6 @@ namespace spotify {
             
         }
 
-<<<<<<< HEAD
-=======
-        public void printPlayListsWithId(int profile_id)
-        {
-            Console.WriteLine($"fetching songs");
-            foreach (int key in afspeellijst.Keys) 
-            {
-                if (afspeellijst[key].author != profile_id)
-                {
-                    continue;
-                }
-
-                Console.WriteLine("");
-                Console.WriteLine("----------------------");
-                Console.WriteLine("");
-
-
-                Console.WriteLine($"-Afspeelijst-name:      {afspeellijst[key].title}");
-                Console.WriteLine($"-Afspeelijst-artis:     {UsersDict[afspeellijst[key].author].username}");
-                foreach (int song_key in afspeellijst[key].songs) 
-                {
-                    Console.WriteLine("----------------------");
-                    SongModel song = SongDict[song_key];
-                    Console.WriteLine($"song-name:      {song.title}");
-                    Console.WriteLine($"song-name:      {song.duration}");
-                    Console.WriteLine($"song-name:      {song.genre}");
-                    Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
-
-                }
-
-            }
-            
-        }
-
->>>>>>> main
         public void logoutUser(int user_id)
         {
             User user = UsersDict[user_id];
