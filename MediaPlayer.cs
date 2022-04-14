@@ -64,7 +64,7 @@ namespace spotify {
 
         public void goToNextSong(AuthModel auth_model) 
         {
-            song_list.Remove(song_id);
+            song_list.Remove(this.current_song);
             if (song_list.Count == 0) {
                 Console.WriteLine("Play random song from auth");
             }
