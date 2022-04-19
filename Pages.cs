@@ -140,7 +140,10 @@ namespace spotify {
         {
             Console.WriteLine("Use goto {page.name} to navigate");
                 Console.WriteLine();
+
             Console.WriteLine("playlist.panel");
+            Console.WriteLine("playlist.remove {id-song} {id-playlist}");
+            Console.WriteLine("playlist.add {id-song} {id-playlist}");
             Console.WriteLine("goto playlist.view               - See all playlist");
             Console.WriteLine("playlist.view-id   {user_id}     - See all playlist of user");
         }

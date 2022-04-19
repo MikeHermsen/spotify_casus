@@ -50,7 +50,7 @@ namespace spotify {
             afspeellijst.Add(
                 1, new AfspeelLijst(
                     "van alles en nog wat",
-                    new List<int> {1, 2, 3},
+                    new List<int> {1, 2},
                     1
                 )
             );
@@ -183,6 +183,47 @@ namespace spotify {
 
         }
 
+
+        public void addSongToPlayListWithId(int user_id, int song_id, int afspeellijst_id)
+        {
+            User user                           = UsersDict[user_id];
+            SongModel song_entity               = SongDict[song_id];
+            AfspeelLijst afspeellijst_entity    = afspeellijst[afspeellijst_id];
+            
+
+            if (afspeellijst_entity.author != user_id) 
+            {
+                Console.WriteLine("Mag geen bewerking doen aan playlist omdat de afspeellijst niet door jouw is aangemaakt.");
+                return;
+            }
+
+
+            printPlayListsWithId(user_id);
+            afspeellijst_entity.addSong(song_entity, song_id);
+
+        }
+
+
+        public void removeSongFromPlayListWithId(int user_id, int song_id, int afspeellijst_id)
+        {
+            User user                           = UsersDict[user_id];
+            SongModel song_entity               = SongDict[song_id];
+            AfspeelLijst afspeellijst_entity    = afspeellijst[afspeellijst_id];
+            
+
+            if (afspeellijst_entity.author != user_id) 
+            {
+                Console.WriteLine("Mag geen bewerking doen aan playlist omdat de afspeellijst niet door jouw is aangemaakt.");
+                return;
+            }
+
+
+            afspeellijst_entity.removeSong(song_entity, song_id);
+            printPlayListsWithId(user_id);
+
+        }
+
+
         public void removeSongWithId(int user_id, int song_id)
         {
             User user = UsersDict[user_id];
@@ -218,12 +259,14 @@ namespace spotify {
                     Console.WriteLine("Playlist belongs to you");
                 }
 
+                Console.WriteLine($"-Afspeelijst-id:      {key}");
                 Console.WriteLine($"-Afspeelijst-name:      {afspeellijst[key].title}");
                 Console.WriteLine($"-Afspeelijst-artis:     {UsersDict[afspeellijst[key].author].username}");
                 foreach (int song_key in afspeellijst[key].songs) 
                 {
                     Console.WriteLine("----------------------");
                     SongModel song = SongDict[song_key];
+                    Console.WriteLine($"song-id:     {song_key}");
                     Console.WriteLine($"song-title:     {song.title}");
                     Console.WriteLine($"song-duration:  {song.duration}");
                     Console.WriteLine($"song-genre:     {song.genre}");
@@ -264,15 +307,17 @@ namespace spotify {
                 Console.WriteLine("");
 
 
+                Console.WriteLine($"-Afspeelijst-id:      {key}");
                 Console.WriteLine($"-Afspeelijst-name:      {afspeellijst[key].title}");
                 Console.WriteLine($"-Afspeelijst-artis:     {UsersDict[afspeellijst[key].author].username}");
                 foreach (int song_key in afspeellijst[key].songs) 
                 {
                     Console.WriteLine("----------------------");
                     SongModel song = SongDict[song_key];
-                    Console.WriteLine($"song-name:      {song.title}");
-                    Console.WriteLine($"song-name:      {song.duration}");
-                    Console.WriteLine($"song-name:      {song.genre}");
+                    Console.WriteLine($"song-id:     {song_key}");
+                    Console.WriteLine($"song-title:     {song.title}");
+                    Console.WriteLine($"song-duration:  {song.duration}");
+                    Console.WriteLine($"song-genre:     {song.genre}");
                     Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
 
                 }

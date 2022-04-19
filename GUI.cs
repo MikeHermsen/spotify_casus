@@ -209,6 +209,22 @@ namespace spotify {
                 mediaPlayer.updateSongLogic(Auth);
 
             }
+            
+
+            else if ( command.StartsWith("playlist.add") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                int playlist_id = int.Parse(command.Split(" ")[2]);
+
+                Auth.addSongToPlayListWithId(user_id, song_id, playlist_id);
+            }
+            else if ( command.StartsWith("playlist.remove") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                int playlist_id = int.Parse(command.Split(" ")[2]);
+
+                Auth.removeSongFromPlayListWithId(user_id, song_id, playlist_id);
+            }
 
 
             else if ( command.StartsWith("song.current") && user_id != 0) 

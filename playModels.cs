@@ -6,7 +6,8 @@ namespace spotify {
 
     interface IPlayModel {  
 
-        void addSong();
+        void addSong(SongModel song, int song_id);
+        void removeSong(SongModel song, int song_id);
     }
 
 
@@ -23,10 +24,31 @@ namespace spotify {
             this.songs = songs;
         }
 
-        public void addSong() 
+        public void addSong(SongModel song, int song_id) 
         {
-            Console.WriteLine("404 not-found");
+            Console.WriteLine($"Adding song {song.title} in afspeellijst {this.title}");
+            if ( this.songs.Contains(song_id) ) 
+            {
+                Console.WriteLine("Song already existing.");
+                return;
+            } 
+
+            this.songs.Add(song_id);
         }
+
+
+        public void removeSong(SongModel song, int song_id) 
+        {
+            Console.WriteLine($"Removing song {song.title} in afspeellijst {this.title}");
+            if ( this.songs.Contains(song_id) ) 
+            {
+                this.songs.Remove(song_id);
+                return;
+            } 
+            Console.WriteLine("Song is not in playlist.");
+
+        }
+
 
     }
 
@@ -44,9 +66,14 @@ namespace spotify {
             this.songs = songs;
         }
 
-        public void addSong() 
+        public void addSong(SongModel song, int song_id) 
         {
             Console.WriteLine("404 not-found");
+        }
+
+        public void removeSong(SongModel song, int song_id)
+        {
+            Console.WriteLine("HelloWowrld");
         }
 
     }
