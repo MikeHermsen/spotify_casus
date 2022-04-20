@@ -107,9 +107,23 @@ namespace spotify {
         {
             resetRunTime();
             this.current_song = song_id;
+        }
+        public void addSongWithID(int song_id)
+        {
+            if (this.song_list.Contains(song_id)) return;
             this.song_list.Add(song_id);
         }
 
+
+        public void removePlaySongWithID(int song_id)
+        {
+            if (this.song_list.Contains(song_id)) {
+                this.song_list.Remove(song_id);
+                return;
+            }
+        }
+
+        
         public void currentSongPlaying(AuthModel Auth) 
         { 
             updateSongLogic(Auth);

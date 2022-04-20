@@ -43,7 +43,14 @@ namespace spotify {
 
             while (true) {
                 Console.Write("ENTER COMMAND : ");
-                app.handeCommand(Console.ReadLine());
+                try
+                {
+                    app.handeCommand(Console.ReadLine());
+                }
+                catch {
+                    Console.WriteLine("Command not supported");
+                }
+
             }
         }
 

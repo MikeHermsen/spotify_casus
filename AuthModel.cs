@@ -245,6 +245,16 @@ namespace spotify {
 
         }
 
+        public void printAllSongs()
+        {
+            foreach (int key in SongDict.Keys) {
+                SongModel song = SongDict[key];
+
+                Console.WriteLine($"song : {key} - {song.title}");
+            }
+
+        }
+
         public void printPlayLists(int user_id)
         {
             Console.WriteLine($"fetching songs");

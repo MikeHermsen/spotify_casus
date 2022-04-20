@@ -193,6 +193,24 @@ namespace spotify {
                 mediaPlayer.playSongWithID(song_id);
                 renderBase("mediaplayer.panel");
             }
+            else if ( command.StartsWith("mediaplayer.remove") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                mediaPlayer.removePlaySongWithID(song_id);
+                renderBase("mediaplayer.panel");
+            }
+            else if ( command.StartsWith("mediaplayer.add") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                mediaPlayer.addSongWithID(song_id);
+                renderBase("mediaplayer.panel");
+            }
+
+            else if ( command.StartsWith("songs.all") && user_id != 0) 
+            {
+                renderBase("mediaplayer.panel");
+                Auth.printAllSongs();
+            }
 
             else if ( command.StartsWith("playlist.view-id") && user_id != 0) 
             {
