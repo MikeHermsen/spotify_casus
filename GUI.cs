@@ -10,7 +10,6 @@ namespace spotify {
         public string hold_login_password;      // Dit is voor inlog & register 
         private string cache;                   // Command caching
         int user_id                         = 0;                    // User id    
-        private List<User> UsersList        = new List<User>();     
         public AuthModel Auth               = new AuthModel();
         public MediaController mediaPlayer  = new MediaController();
 
@@ -262,8 +261,6 @@ namespace spotify {
                 renderBase("mediaplayer.panel");
             }
 
-            
-
             else if ( command.StartsWith("songs.all") && user_id != 0) 
             {
                 renderBase("mediaplayer.panel");
@@ -276,7 +273,6 @@ namespace spotify {
                 Auth.printPlayListsWithId(profile_id );
 
             }
- 
             else if ( command.StartsWith("playlist.play") && user_id != 0) 
             {
                 int playlist_id = int.Parse(command.Split(" ")[1]);
@@ -285,16 +281,6 @@ namespace spotify {
                 mediaPlayer.updateSongLogic(Auth);
 
             }
-            
-            else if ( command.StartsWith("album.play") && user_id != 0) 
-            {
-                int album_id = int.Parse(command.Split(" ")[1]);
-                List<int> album = Auth.fetchAlbumListsWithId(album_id);
-                mediaPlayer.importSongsFromList(album);
-                mediaPlayer.updateSongLogic(Auth);
-            }
-            
-
             else if ( command.StartsWith("playlist.add") && user_id != 0) 
             {
                 int song_id = int.Parse(command.Split(" ")[1]);
@@ -310,12 +296,21 @@ namespace spotify {
                 Auth.removeSongFromPlayListWithId(user_id, song_id, playlist_id);
             }
 
+            else if ( command.StartsWith("album.play") && user_id != 0) 
+            {
+                int album_id = int.Parse(command.Split(" ")[1]);
+                List<int> album = Auth.fetchAlbumListsWithId(album_id);
+                mediaPlayer.importSongsFromList(album);
+                mediaPlayer.updateSongLogic(Auth);
+            }
+            
+            // TODO rest van album overzetten vanuit playlist
 
             else if ( command.StartsWith("song.current") && user_id != 0) 
             {
                 mediaPlayer.currentSongPlaying(Auth);
             }
-            else if ( command.StartsWith("song.next") && user_id != 0) 
+            else if ( command.StartsWith("mediaplayer.next") && user_id != 0) 
             {
                 mediaPlayer.goToNextSong(Auth);
             }

@@ -10,7 +10,9 @@ namespace spotify {
 
         private int current_song = 0;
         private DateTime src_time = DateTime.Now;
+        // Maak functie die shuffled toggled bool
         private bool shuffle    = false;
+        // Maak functie die replay toggled bool
         private bool replay    = false;
         private bool isPaused    = false;
         private int pause_minus_time = 0;
@@ -88,7 +90,6 @@ namespace spotify {
 
             SongModel song_model = auth_model.getCurrentSongByID(this.current_song);
 
-            int time_playing = getRunTime() - song_model.duration;
             int time_left = (song_model.duration - getRunTime()) + (this.total_pause_time + refreshPauseLogic());
             
             
@@ -105,7 +106,7 @@ namespace spotify {
 
 
             if (this.replay)
-            {
+            {   
                 return;
             }
             
@@ -165,7 +166,12 @@ namespace spotify {
             updateSongLogic(Auth);
 
             Console.WriteLine("");
-            Console.WriteLine("----------------------");
+            if (this.isPaused) 
+            {
+                Console.WriteLine("--------[PAUSED]-------");
+            } else {
+                Console.WriteLine("--------[PLAYING]-------");
+            }
             Console.WriteLine("");
             
             if (this.current_song == 0) 

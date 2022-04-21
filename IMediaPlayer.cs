@@ -16,6 +16,7 @@ namespace spotify {
             Console.WriteLine("mediaplayer.play {song_id}");
             Console.WriteLine("mediaplayer.remove {song_id}");
             Console.WriteLine("mediaplayer.add {song_id}");
+            Console.WriteLine("mediaplayer.next                 - Next song"); 
             Console.WriteLine("songs.all");
             
         }
