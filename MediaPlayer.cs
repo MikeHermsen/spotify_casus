@@ -160,7 +160,7 @@ namespace spotify {
             }
         }
 
-        
+        // Wie dit leest legend
         public void currentSongPlaying(AuthModel Auth) 
         { 
             updateSongLogic(Auth);
