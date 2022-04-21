@@ -37,19 +37,22 @@ namespace spotify {
 
         static void Main(string[] args) {  
 
+            // Maakt de GUI en rendered de dashboard
             GUI app = new GUI();
             app.renderBase("home");
 
 
+            // MAIN STREAM - Hier word de input gevraagt
             while (true) {
                 Console.Write("ENTER COMMAND : ");
-                try
-                {
+                // try
+                // {
+                //     // Hier kijkt de functie wat er gedaan moet worden met de gevraagte input
                     app.handeCommand(Console.ReadLine());
-                }
-                catch {
-                    Console.WriteLine("Command not supported");
-                }
+                // }
+                // catch {
+                //     Console.WriteLine("Kommand is niet gevonden. Is het goed geschreven?");
+                // }
 
             }
         }

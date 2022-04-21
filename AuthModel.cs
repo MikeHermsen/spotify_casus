@@ -87,7 +87,6 @@ namespace spotify {
                 )
             );
 
-
             UsersDict.Add(
                 1, new User(
                     "mike_hermsen",
@@ -292,14 +291,31 @@ namespace spotify {
             Console.WriteLine("Play song list called");
             List<int> temp_list = new List<int> {};
 
-            if (!afspeellijst.ContainsKey(playListid))
-            {
-                return temp_list;
-            }
+            if (!afspeellijst.ContainsKey(playListid))  return temp_list;
+            
 
-            Console.WriteLine($" the songs {afspeellijst[playListid].songs}");
+            // Console.WriteLine($" the songs {afspeellijst[playListid].songs}");
 
             return afspeellijst[playListid].songs;
+        }
+
+        public List<int> fetchAlbumListsWithId(int albumListid) 
+        {
+            Console.WriteLine("Play song list called");
+            List<int> temp_list = new List<int> {};
+
+            if (!album.ContainsKey(albumListid))    return temp_list;
+            
+
+            // Console.WriteLine($" the songs {album[albumListid].songs}");
+
+            return album[albumListid].songs;
+        }
+
+
+        public bool songExistInDict(int song_id) 
+        {
+            return SongDict.ContainsKey(song_id);
         }
 
         public void printPlayListsWithId(int profile_id)
@@ -333,6 +349,7 @@ namespace spotify {
                 }
 
             }
+            
             
         }
 

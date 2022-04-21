@@ -6,17 +6,18 @@ namespace spotify {
     class GUI {  
 
 
-        public string hold_login_username;
-        public string hold_login_password;
-        private string cache;
-        int user_id               = 0;
-        private List<User> UsersList     = new List<User>();
-        public AuthModel Auth = new AuthModel();
-        public MediaController mediaPlayer = new MediaController();
+        public string hold_login_username;      // Dit is voor inlog & register
+        public string hold_login_password;      // Dit is voor inlog & register 
+        private string cache;                   // Command caching
+        int user_id                         = 0;                    // User id    
+        private List<User> UsersList        = new List<User>();     
+        public AuthModel Auth               = new AuthModel();
+        public MediaController mediaPlayer  = new MediaController();
 
         public void renderBase(string route) {
+            // Maakt de console leeg
             ClearGUI();
-            Console.WriteLine(mediaPlayer.getRunTime());
+            // Console.WriteLine(mediaPlayer.getRunTime());
             mediaPlayer.updateSongLogic(Auth);
             
 
@@ -134,12 +135,58 @@ namespace spotify {
                 renderBase(page);
             }
 
-            else if ( command.StartsWith("login.test") && user_id == 0) 
-            { // DEBUG LOGIN TODO
+            // TESTS
+            else if ( command.StartsWith("fast.login") ) {
                 user_id = Auth.loginUser("mike_hermsen", "test123");
-                handeCommand("mediaplayer.play 2");
-            }
+            } 
 
+            else if ( command.StartsWith("test.login") ) 
+            {
+
+                // test-1: login zonder username of password
+                this.hold_login_password = null;
+                this.hold_login_username = null;
+                handeCommand("login.submit");
+
+                // test-2: login zonder password
+                handeCommand("login.username test");
+                handeCommand("login.submit");
+
+                this.hold_login_username = null;
+                handeCommand("login.password test");
+                handeCommand("login.submit");
+
+                // Daadwerkelijke login 
+                handeCommand("login.username mike_hermsen");
+                handeCommand("login.password test123");
+                handeCommand("login.submit");
+            }
+            else if ( command.StartsWith("test.mediaplayer.play") ) 
+            {
+
+                // PLAY LOGIC TEST
+                handeCommand("mediaplayer.play 2");
+                handeCommand("mediaplayer.play 3");
+                handeCommand("mediaplayer.play 4");
+                handeCommand("mediaplayer.play -4");
+                handeCommand("mediaplayer.play");
+                handeCommand("mediaplayer.play test");
+                handeCommand("mediaplayer.play _");
+            }
+            else if ( command.StartsWith("test.mediaplayer.add") ) 
+            {
+                // ADD LOGIC TEST
+                handeCommand("mediaplayer.add 1");
+                handeCommand("mediaplayer.add 3");
+                handeCommand("mediaplayer.add 2");
+                handeCommand("mediaplayer.add 4");
+                handeCommand("mediaplayer.add -4");
+                handeCommand("mediaplayer.add");
+                handeCommand("mediaplayer.add test");
+                handeCommand("mediaplayer.add _");
+
+            }
+        
 
             // LOGIN
             else if ( command.StartsWith("login.username") && user_id == 0) 
@@ -189,22 +236,33 @@ namespace spotify {
             
             else if ( command.StartsWith("mediaplayer.play") && user_id != 0) 
             {
+                if(!int.TryParse(command.Split(" ")[1], out int value)) return;
+
                 int song_id = int.Parse(command.Split(" ")[1]);
-                mediaPlayer.playSongWithID(song_id);
+                mediaPlayer.playSongWithID(song_id, Auth);
                 renderBase("mediaplayer.panel");
             }
             else if ( command.StartsWith("mediaplayer.remove") && user_id != 0) 
             {
+                if(!int.TryParse(command.Split(" ")[1], out int value)) return;
                 int song_id = int.Parse(command.Split(" ")[1]);
                 mediaPlayer.removePlaySongWithID(song_id);
                 renderBase("mediaplayer.panel");
             }
             else if ( command.StartsWith("mediaplayer.add") && user_id != 0) 
             {
+                if(!int.TryParse(command.Split(" ")[1], out int value)) return;
                 int song_id = int.Parse(command.Split(" ")[1]);
-                mediaPlayer.addSongWithID(song_id);
+                mediaPlayer.addSongWithID(song_id, Auth);
                 renderBase("mediaplayer.panel");
             }
+            else if ( command.StartsWith("mediaplayer.pause") && user_id != 0) 
+            {
+                mediaPlayer.togglePauseSong();
+                renderBase("mediaplayer.panel");
+            }
+
+            
 
             else if ( command.StartsWith("songs.all") && user_id != 0) 
             {
@@ -226,6 +284,14 @@ namespace spotify {
                 mediaPlayer.importSongsFromList(playList);
                 mediaPlayer.updateSongLogic(Auth);
 
+            }
+            
+            else if ( command.StartsWith("album.play") && user_id != 0) 
+            {
+                int album_id = int.Parse(command.Split(" ")[1]);
+                List<int> album = Auth.fetchAlbumListsWithId(album_id);
+                mediaPlayer.importSongsFromList(album);
+                mediaPlayer.updateSongLogic(Auth);
             }
             
 

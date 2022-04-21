@@ -12,6 +12,10 @@ namespace spotify {
         private DateTime src_time = DateTime.Now;
         private bool shuffle    = false;
         private bool replay    = false;
+        private bool isPaused    = false;
+        private int pause_minus_time = 0;
+        private int total_pause_time = 0;
+        private int pause_on_time   = 0;
 
         public MediaController()
         {
@@ -29,8 +33,36 @@ namespace spotify {
         private void resetRunTime()
         {
             this.src_time = DateTime.Now;
+            this.pause_on_time = 0;
+            this.total_pause_time = 0;
         }
             
+
+        public int refreshPauseLogic()
+        {
+            if (isPaused)
+            {
+                this.pause_minus_time = getRunTime() - this.pause_on_time;  
+                return this.pause_minus_time;
+            }
+            return 0;
+        }
+
+        public void togglePauseSong() 
+        {
+            isPaused        = !isPaused;
+            if (isPaused) {
+                this.pause_on_time = getRunTime(); 
+                return;
+            }   
+
+            this.pause_minus_time = getRunTime() - this.pause_on_time;  
+            this.total_pause_time = this.total_pause_time + this.pause_minus_time;
+
+            Console.WriteLine($"pause_on_time : {this.pause_on_time} , pause_minus_time : {this.pause_minus_time}");
+
+        }
+
         public int getRunTime()
         {
 
@@ -57,7 +89,8 @@ namespace spotify {
             SongModel song_model = auth_model.getCurrentSongByID(this.current_song);
 
             int time_playing = getRunTime() - song_model.duration;
-            int time_left = song_model.duration - getRunTime();
+            int time_left = (song_model.duration - getRunTime()) + (this.total_pause_time + refreshPauseLogic());
+            
             
             if (time_left < 0) {
                 goToNextSong(auth_model);
@@ -68,7 +101,6 @@ namespace spotify {
 
         public void goToNextSong(AuthModel auth_model) 
         {
-
             resetRunTime();
 
 
@@ -103,15 +135,19 @@ namespace spotify {
 
         }
 
-        public void playSongWithID(int song_id)
+        public void playSongWithID(int song_id, AuthModel Auth)
         {
             resetRunTime();
-            this.current_song = song_id;
+            if (Auth.songExistInDict(song_id)) this.current_song = song_id;
+            Console.WriteLine("Liedje bestaat niet");
+        
         }
-        public void addSongWithID(int song_id)
+        public void addSongWithID(int song_id, AuthModel Auth)
         {
             if (this.song_list.Contains(song_id)) return;
-            this.song_list.Add(song_id);
+            if (Auth.songExistInDict(song_id)) this.song_list.Add(song_id);
+            Console.WriteLine("Liedje bestaat niet");
+
         }
 
 
@@ -140,7 +176,7 @@ namespace spotify {
 
             SongModel song_model = Auth.getCurrentSongByID(this.current_song);
             
-            int time_left = song_model.duration - getRunTime();
+            int time_left = (song_model.duration - getRunTime()) + (this.total_pause_time + refreshPauseLogic());
             
             Console.WriteLine($"id:       {this.current_song}     ");
             Console.WriteLine($"title:      {song_model.title}     ");
