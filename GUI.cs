@@ -112,6 +112,21 @@ namespace spotify {
 
             }
 
+            else if (route.StartsWith("album"))
+            {
+                IAlbumPage pageObj = new IAlbumPage(Auth, user_id);
+
+                if ( route == "album.panel" && user_id != 0)
+                { // album.panel
+                    pageObj.renderPage();
+                }   
+                else if ( route == "album.view" && user_id != 0)
+                { // album.view
+                    pageObj.albumView();
+                }
+
+            }
+
             else if (route.StartsWith("song"))
             {
                 SongPage pageObj = new SongPage();
@@ -269,8 +284,8 @@ namespace spotify {
 
             else if ( command.StartsWith("playlist.view-id") && user_id != 0) 
             {
-                int profile_id = int.Parse(command.Split(" ")[1]);
-                Auth.printPlayListsWithId(profile_id );
+                int album_id = int.Parse(command.Split(" ")[1]);
+                Auth.printPlayListsWithId(album_id);
 
             }
             else if ( command.StartsWith("playlist.play") && user_id != 0) 
@@ -288,6 +303,12 @@ namespace spotify {
 
                 Auth.addSongToPlayListWithId(user_id, song_id, playlist_id);
             }
+            else if ( command.StartsWith("playlist.make") && user_id != 0) 
+            {
+                string playlist_title = command.Split(" ")[1];
+
+                Auth.createAfspeellijst(playlist_title, user_id);
+            }
             else if ( command.StartsWith("playlist.remove") && user_id != 0) 
             {
                 int song_id = int.Parse(command.Split(" ")[1]);
@@ -295,6 +316,34 @@ namespace spotify {
 
                 Auth.removeSongFromPlayListWithId(user_id, song_id, playlist_id);
             }
+
+            else if ( command.StartsWith("album.make") && user_id != 0) 
+            {
+                string album_title = command.Split(" ")[1];
+
+                Auth.createAlbum(album_title, user_id);
+            }
+            else if ( command.StartsWith("album.add") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                int album_id = int.Parse(command.Split(" ")[2]);
+
+                Auth.addSongToAlbumWithId(user_id, song_id, album_id);
+            }
+            else if ( command.StartsWith("album.remove") && user_id != 0) 
+            {
+                int song_id = int.Parse(command.Split(" ")[1]);
+                int album_id = int.Parse(command.Split(" ")[2]);
+
+                Auth.removeSongFromAlbumWithId(user_id, song_id, album_id);
+            }
+            else if ( command.StartsWith("album.view-id") && user_id != 0) 
+            {
+                int album_id = int.Parse(command.Split(" ")[1]);
+                Auth.printAlbumWithId(album_id);
+
+            }
+
 
             else if ( command.StartsWith("album.play") && user_id != 0) 
             {
@@ -384,7 +433,7 @@ namespace spotify {
             {
                 navList = new string[] { "home", "login", "register" };
             } else {
-                navList = new string[] { "home", "dashboard", "mediaplayer.panel", "friends.panel", "playlist.panel", "song.panel" };
+                navList = new string[] { "home", "dashboard", "mediaplayer.panel", "friends.panel", "playlist.panel", "song.panel", "album.panel" };
             }
 
             foreach (var route_src in navList)
@@ -413,9 +462,6 @@ namespace spotify {
             
             string[] commandList = new string[] {
                     "goto {menu-item}           - Navigating to different screen", 
-                    // "play song {song}           - Plays the song you want.      ", 
-                    // "play playlist {play-list}  - Plays the playlist            ",
-                    // "shuffle {on, off, toggle}  - Shuffle mode                  ",
                     "exit                       - Never ever ever use this      " };
 
             foreach (var command in commandList)

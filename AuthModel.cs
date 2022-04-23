@@ -155,6 +155,29 @@ namespace spotify {
 
         }
 
+        public void createAlbum(string title, int user_id) 
+        {
+            album.Add(
+                album.Count + 1, new Album(
+                    title,
+                    new List<int> {},
+                    user_id
+                )
+            );
+
+        }
+
+        public void createAfspeellijst(string title, int user_id) 
+        {
+            afspeellijst.Add(
+                afspeellijst.Count + 1, new AfspeelLijst(
+                    title,
+                    new List<int> {},
+                    user_id
+                )
+            );
+        }
+
         public void removeFriendWithId(int user_id, int friend_id)
         {
             User user = UsersDict[user_id];
@@ -223,6 +246,48 @@ namespace spotify {
         }
 
 
+
+
+        public void addSongToAlbumWithId(int user_id, int song_id, int album_id)
+        {
+            User user                           = UsersDict[user_id];
+            SongModel song_entity               = SongDict[song_id];
+            Album album_entity    = album[album_id];
+            
+
+            if (album_entity.author != user_id) 
+            {
+                Console.WriteLine("Mag geen bewerking doen aan playlist omdat de afspeellijst niet door jouw is aangemaakt.");
+                return;
+            }
+
+
+            printAlbumWithId(user_id);
+            album_entity.addSong(song_entity, song_id);
+
+        }
+
+
+        public void removeSongFromAlbumWithId(int user_id, int song_id, int album_id)
+        {
+            User user                           = UsersDict[user_id];
+            SongModel song_entity               = SongDict[song_id];
+            Album album_entity    = album[album_id];
+            
+
+            if (album_entity.author != user_id) 
+            {
+                Console.WriteLine("Mag geen bewerking doen aan playlist omdat de afspeellijst niet door jouw is aangemaakt.");
+                return;
+            }
+
+
+            album_entity.removeSong(song_entity, song_id);
+            printAlbumWithId(user_id);
+
+        }
+
+
         public void removeSongWithId(int user_id, int song_id)
         {
             User user = UsersDict[user_id];
@@ -252,6 +317,41 @@ namespace spotify {
                 Console.WriteLine($"song : {key} - {song.title}");
             }
 
+        }
+
+        
+
+        public void printAlbumWithId(int user_id)
+        {
+            Console.WriteLine($"fetching songs");
+            foreach (int key in album.Keys) 
+            {
+
+                    Console.WriteLine("");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("");
+
+                if (album[key].author == user_id) {
+                    Console.WriteLine("Playlist belongs to you");
+                }
+
+                Console.WriteLine($"-Afspeelijst-id:      {key}");
+                Console.WriteLine($"-Afspeelijst-name:      {album[key].title}");
+                Console.WriteLine($"-Afspeelijst-artis:     {UsersDict[album[key].author].username}");
+                foreach (int song_key in album[key].songs) 
+                {
+                    Console.WriteLine("----------------------");
+                    SongModel song = SongDict[song_key];
+                    Console.WriteLine($"song-id:     {song_key}");
+                    Console.WriteLine($"song-title:     {song.title}");
+                    Console.WriteLine($"song-duration:  {song.duration}");
+                    Console.WriteLine($"song-genre:     {song.genre}");
+                    Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
+
+                }
+
+            }
+            
         }
 
         public void printPlayLists(int user_id)
@@ -286,6 +386,43 @@ namespace spotify {
             }
             
         }
+
+
+
+
+        public void printAlbumLists(int user_id)
+        {
+            Console.WriteLine($"fetching songs");
+            foreach (int key in album.Keys) 
+            {
+
+                    Console.WriteLine("");
+                    Console.WriteLine("----------------------");
+                    Console.WriteLine("");
+
+                if (album[key].author == user_id) {
+                    Console.WriteLine("Playlist belongs to you");
+                }
+
+                Console.WriteLine($"-Album-id:      {key}");
+                Console.WriteLine($"-Album-name:      {album[key].title}");
+                Console.WriteLine($"-Album-artis:     {UsersDict[album[key].author].username}");
+                foreach (int song_key in album[key].songs) 
+                {
+                    Console.WriteLine("----------------------");
+                    SongModel song = SongDict[song_key];
+                    Console.WriteLine($"song-id:     {song_key}");
+                    Console.WriteLine($"song-title:     {song.title}");
+                    Console.WriteLine($"song-duration:  {song.duration}");
+                    Console.WriteLine($"song-genre:     {song.genre}");
+                    Console.WriteLine($"song-artist:    {UsersDict[song.artist].username}");
+
+                }
+
+            }
+            
+        }
+
         public List<int> fetchPlayListsWithId(int playListid) 
         {
             Console.WriteLine("Play song list called");

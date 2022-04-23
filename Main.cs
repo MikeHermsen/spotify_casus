@@ -45,14 +45,14 @@ namespace spotify {
             // MAIN STREAM - Hier word de input gevraagt
             while (true) {
                 Console.Write("ENTER COMMAND : ");
-                // try
-                // {
-                //     // Hier kijkt de functie wat er gedaan moet worden met de gevraagte input
+                try
+                {
+                    // Hier kijkt de functie wat er gedaan moet worden met de gevraagte input
                     app.handeCommand(Console.ReadLine());
-                // }
-                // catch {
-                //     Console.WriteLine("Kommand is niet gevonden. Is het goed geschreven?");
-                // }
+                }
+                catch {
+                    Console.WriteLine("Kommand is niet gevonden. Is het goed geschreven?");
+                }
 
             }
         }
