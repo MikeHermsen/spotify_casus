@@ -167,6 +167,20 @@ namespace spotify {
 
         }
 
+
+        public void createNewSong(string title, int user_id, int duration, string genre) 
+        {
+            SongDict.Add(
+                SongDict.Count + 1, new SongModel(
+                    title,
+                    duration,
+                    genre, 
+                    user_id
+                )
+            );
+
+        }
+
         public void createAfspeellijst(string title, int user_id) 
         {
             afspeellijst.Add(

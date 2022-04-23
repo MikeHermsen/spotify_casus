@@ -175,31 +175,201 @@ namespace spotify {
                 handeCommand("login.password test123");
                 handeCommand("login.submit");
             }
-            else if ( command.StartsWith("test.mediaplayer.play") ) 
-            {
 
-                // PLAY LOGIC TEST
-                handeCommand("mediaplayer.play 2");
-                handeCommand("mediaplayer.play 3");
-                handeCommand("mediaplayer.play 4");
-                handeCommand("mediaplayer.play -4");
-                handeCommand("mediaplayer.play");
-                handeCommand("mediaplayer.play test");
-                handeCommand("mediaplayer.play _");
+
+            
+            else if ( command.StartsWith("test.all") ) 
+            {
+                handeCommand("test.register");
+                handeCommand("test.login");
+                handeCommand("test.goto");
+                handeCommand("test.mediaplayer");
+                handeCommand("test.playlist");
+                handeCommand("test.album");
+                handeCommand("test.songs");
+                handeCommand("test.friends");
+
             }
-            else if ( command.StartsWith("test.mediaplayer.add") ) 
+            else if ( command.StartsWith("test.register") ) 
+            {
+                handeCommand("register.submit");
+
+                handeCommand("register.username");
+                handeCommand("register.password");
+                handeCommand("register.submit");
+                handeCommand("logout");
+                
+                handeCommand("register.username *");
+                handeCommand("register.password *");
+                handeCommand("register.submit");
+                handeCommand("logout");
+
+                handeCommand("register.username username");
+                handeCommand("register.password password");
+                handeCommand("register.submit");
+                handeCommand("logout");
+                
+            }
+            else if ( command.StartsWith("test.login") ) 
+            {
+                handeCommand("login.submit");
+
+                handeCommand("login.username");
+                handeCommand("login.password");
+                handeCommand("login.submit");
+                handeCommand("logout");
+
+                handeCommand("login.username *");
+                handeCommand("login.password *");
+                handeCommand("login.submit");
+                handeCommand("logout");
+
+                handeCommand("login.username not_existing");
+                handeCommand("login.password not_existing");
+                handeCommand("login.submit");
+                handeCommand("logout");
+
+            }
+            else if ( command.StartsWith("test.goto") ) 
+            {
+                handeCommand("goto *");
+                handeCommand("goto");
+            }
+            else if ( command.StartsWith("test.mediaplayer") ) 
+            {
+                handeCommand("mediaplayer.add *");
+                handeCommand("mediaplayer.add");
+                handeCommand("mediaplayer.add *");
+                handeCommand("mediaplayer.add 2");
+                handeCommand("mediaplayer.add -2");
+                
+                handeCommand("mediaplayer.remove *");
+                handeCommand("mediaplayer.remove");
+                handeCommand("mediaplayer.remove 2");
+                handeCommand("mediaplayer.remove -2");
+                
+                handeCommand("mediaplayer.play 2");
+                handeCommand("mediaplayer.play -2");
+                handeCommand("mediaplayer.play");
+                handeCommand("mediaplayer.play *");
+                
+                handeCommand("mediaplayer.next");
+                
+                handeCommand("mediaplayer.pause");
+                handeCommand("mediaplayer.pause");
+
+            }
+            else if ( command.StartsWith("test.playlist") ) 
+            {
+                handeCommand("playlist.view-id");
+                handeCommand("playlist.view-id *");
+                handeCommand("playlist.view-id 1");
+                handeCommand("playlist.view-id -1");
+
+                handeCommand("playlist.play");
+                handeCommand("playlist.play *");
+                handeCommand("playlist.play -2");
+                handeCommand("playlist.play 2");
+                
+                handeCommand("playlist.add");
+                handeCommand("playlist.add 2");
+                handeCommand("playlist.add -2 -2");
+                handeCommand("playlist.add 2 *");
+                handeCommand("playlist.add * 2");
+                handeCommand("playlist.add * *");
+                handeCommand("playlist.add 2 2");
+                handeCommand("playlist.add 1 1");
+                handeCommand("playlist.add 1 2");
+                
+                handeCommand("playlist.make *");
+                handeCommand("playlist.make");
+                handeCommand("playlist.make 2");
+                
+                handeCommand("playlist.remove");
+                handeCommand("playlist.remove 2");
+                handeCommand("playlist.remove -2 -2");
+                handeCommand("playlist.remove 2 *");
+                handeCommand("playlist.remove * 2");
+                handeCommand("playlist.remove * *");
+                handeCommand("playlist.remove 2 2");
+                handeCommand("playlist.remove 1 1");
+                handeCommand("playlist.remove 1 2");
+
+            }
+            else if ( command.StartsWith("test.album") ) 
+            {
+                handeCommand("album.view-id");
+                handeCommand("album.view-id *");
+                handeCommand("album.view-id 1");
+                handeCommand("album.view-id -1");
+
+                handeCommand("album.play");
+                handeCommand("album.play *");
+                handeCommand("album.play -2");
+                handeCommand("album.play 2");
+                
+                handeCommand("album.add");
+                handeCommand("album.add 2");
+                handeCommand("album.add -2 -2");
+                handeCommand("album.add 2 *");
+                handeCommand("album.add * 2");
+                handeCommand("album.add * *");
+                handeCommand("album.add 2 2");
+                handeCommand("album.add 1 1");
+                handeCommand("album.add 1 2");
+                
+                handeCommand("album.make *");
+                handeCommand("album.make");
+                handeCommand("album.make 2");
+                
+                handeCommand("album.remove");
+                handeCommand("album.remove 2");
+                handeCommand("album.remove -2 -2");
+                handeCommand("album.remove 2 *");
+                handeCommand("album.remove * 2");
+                handeCommand("album.remove * *");
+                handeCommand("album.remove 2 2");
+                handeCommand("album.remove 1 1");
+                handeCommand("album.remove 1 2");
+            }
+            else if ( command.StartsWith("test.songs") ) 
+            {
+                handeCommand("songs.all");
+                handeCommand("song.current");
+                
+                handeCommand("song.like *");
+                handeCommand("song.like -2");
+                handeCommand("song.like 2");
+                handeCommand("song.like");
+                
+                handeCommand("song.dislike");
+                handeCommand("song.dislike *");
+                handeCommand("song.dislike -2");
+                handeCommand("song.dislike 2");
+
+            }
+            else if ( command.StartsWith("test.friends") ) 
             {
                 // ADD LOGIC TEST
-                handeCommand("mediaplayer.add 1");
-                handeCommand("mediaplayer.add 3");
-                handeCommand("mediaplayer.add 2");
-                handeCommand("mediaplayer.add 4");
-                handeCommand("mediaplayer.add -4");
-                handeCommand("mediaplayer.add");
-                handeCommand("mediaplayer.add test");
-                handeCommand("mediaplayer.add _");
+                handeCommand("friends.add *");
+                handeCommand("friends.add");
+                handeCommand("friends.add -2");
+                handeCommand("friends.add 2");
+                handeCommand("friends.add 1");
 
+                handeCommand("friends.remove 2");
+                handeCommand("friends.remove *");
+                handeCommand("friends.remove");
+                handeCommand("friends.remove -2");
+
+                handeCommand("friends.profile");
+                handeCommand("friends.profile *");
+                handeCommand("friends.profile 2");
+                handeCommand("friends.profile -2");
             }
+
+        
+
         
 
             // LOGIN
@@ -375,7 +545,14 @@ namespace spotify {
                 Auth.removeSongWithId(user_id, hold_song_id);
                 renderBase("song.panel");
             }
+            else if ( command.StartsWith("song.make") && user_id != 0) 
+            {
+                string song_title   = command.Split(" ")[1];
+                int duration     = int.Parse(command.Split(" ")[2]);
+                string genre        = command.Split(" ")[3];
 
+                Auth.createNewSong(song_title, user_id, duration, genre);
+            }
 
 
             else if ( command.StartsWith("friends.add") && user_id != 0) 
