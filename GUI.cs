@@ -143,18 +143,16 @@ namespace spotify {
 
         public void handeCommand(string command) {
 
+            bool debugIsOn = false;
+            
             if (command.StartsWith("goto")) 
             {
                 string page = command.Split(" ")[1];
                 renderBase(page);
             }
 
-            // TESTS
-            else if ( command.StartsWith("fast.login") ) {
-                user_id = Auth.loginUser("mike_hermsen", "test123");
-            } 
 
-            else if ( command.StartsWith("test.login") ) 
+            else if ( command.StartsWith("test.login") && debugIsOn) 
             {
 
                 // test-1: login zonder username of password
@@ -178,7 +176,7 @@ namespace spotify {
 
 
             
-            else if ( command.StartsWith("test.all") ) 
+            else if ( command.StartsWith("test.all") && debugIsOn ) 
             {
                 handeCommand("test.register");
                 handeCommand("test.login");
@@ -190,7 +188,7 @@ namespace spotify {
                 handeCommand("test.friends");
 
             }
-            else if ( command.StartsWith("test.register") ) 
+            else if ( command.StartsWith("test.register") && debugIsOn ) 
             {
                 handeCommand("register.submit");
 
@@ -210,7 +208,7 @@ namespace spotify {
                 handeCommand("logout");
                 
             }
-            else if ( command.StartsWith("test.login") ) 
+            else if ( command.StartsWith("test.login") && debugIsOn ) 
             {
                 handeCommand("login.submit");
 
@@ -235,7 +233,7 @@ namespace spotify {
                 handeCommand("goto *");
                 handeCommand("goto");
             }
-            else if ( command.StartsWith("test.mediaplayer") ) 
+            else if ( command.StartsWith("test.mediaplayer") && debugIsOn ) 
             {
                 handeCommand("mediaplayer.add *");
                 handeCommand("mediaplayer.add");
@@ -259,7 +257,7 @@ namespace spotify {
                 handeCommand("mediaplayer.pause");
 
             }
-            else if ( command.StartsWith("test.playlist") ) 
+            else if ( command.StartsWith("test.playlist") && debugIsOn ) 
             {
                 handeCommand("playlist.view-id");
                 handeCommand("playlist.view-id *");
@@ -296,7 +294,7 @@ namespace spotify {
                 handeCommand("playlist.remove 1 2");
 
             }
-            else if ( command.StartsWith("test.album") ) 
+            else if ( command.StartsWith("test.album") && debugIsOn ) 
             {
                 handeCommand("album.view-id");
                 handeCommand("album.view-id *");
@@ -332,7 +330,7 @@ namespace spotify {
                 handeCommand("album.remove 1 1");
                 handeCommand("album.remove 1 2");
             }
-            else if ( command.StartsWith("test.songs") ) 
+            else if ( command.StartsWith("test.songs") && debugIsOn ) 
             {
                 handeCommand("songs.all");
                 handeCommand("song.current");
@@ -348,7 +346,7 @@ namespace spotify {
                 handeCommand("song.dislike 2");
 
             }
-            else if ( command.StartsWith("test.friends") ) 
+            else if ( command.StartsWith("test.friends") && debugIsOn ) 
             {
                 // ADD LOGIC TEST
                 handeCommand("friends.add *");
