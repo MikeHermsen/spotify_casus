@@ -51,7 +51,7 @@ namespace spotify {
                     app.handeCommand(Console.ReadLine());
                 }
                 catch {
-                    Console.WriteLine("Kommand is niet gevonden. Is het goed geschreven? Kom je er niet uit kijk dan op {link_for_docs}!");
+                    Console.WriteLine("Kommand is niet gevonden. Is het goed geschreven? Kom je er niet uit kijk dan op https://github.com/MikeHermsen/spotify_casus voor de documentatie!");
                 }
 
             }
